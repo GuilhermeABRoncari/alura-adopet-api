@@ -6,6 +6,7 @@ import br.com.alura.adopet.adopet.domain.dto.PetUpdateDTO;
 import br.com.alura.adopet.adopet.domain.response.AdoptPetResponse;
 import br.com.alura.adopet.adopet.domain.response.PetResponse;
 import br.com.alura.adopet.adopet.rest.service.PetService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 @EnableMethodSecurity(securedEnabled = true)
 @Secured("ROLE_ADMIN")
 @AllArgsConstructor
+@SecurityRequirement(name = "bearer-key")
 public class PetController {
     private PetService petService;
 

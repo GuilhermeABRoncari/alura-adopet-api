@@ -1,12 +1,12 @@
 package br.com.alura.adopet.adopet.rest.controller;
 
-import br.com.alura.adopet.adopet.domain.dto.ShelterDTO;
 import br.com.alura.adopet.adopet.domain.dto.ShelterUpdateDTO;
 import br.com.alura.adopet.adopet.domain.response.ShelterResponse;
 import br.com.alura.adopet.adopet.rest.service.ShelterService;
-import jakarta.validation.Valid;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +17,7 @@ import java.util.List;
 @RequestMapping("/shelters")
 @AllArgsConstructor
 @EnableMethodSecurity(securedEnabled = true)
+@SecurityRequirement(name = "bearer-key")
 public class ShelterController {
     private ShelterService shelterService;
 

@@ -3,6 +3,7 @@ package br.com.alura.adopet.adopet.rest.controller;
 import br.com.alura.adopet.adopet.domain.dto.TutorUpdateDTO;
 import br.com.alura.adopet.adopet.domain.response.TutorResponse;
 import br.com.alura.adopet.adopet.rest.service.TutorService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/tutors")
 @AllArgsConstructor
+@SecurityRequirement(name = "bearer-key")
 public class TutorController {
     private TutorService tutorService;
 
