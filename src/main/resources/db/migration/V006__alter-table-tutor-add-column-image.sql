@@ -1,0 +1,1 @@
+ALTER TABLE tutor ADD COLUMN image VARCHAR(255);

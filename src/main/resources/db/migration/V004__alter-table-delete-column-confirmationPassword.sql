@@ -1,0 +1,1 @@
+ALTER TABLE tutor DROP COLUMN confirmation_password;
