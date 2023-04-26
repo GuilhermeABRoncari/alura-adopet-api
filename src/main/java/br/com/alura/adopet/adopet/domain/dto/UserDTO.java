@@ -12,7 +12,7 @@ public record UserDTO(
         @NotBlank
         @Email
         String email,
-        String fone,
+        String phone,
         @NotBlank
         String userName,
         @NotBlank

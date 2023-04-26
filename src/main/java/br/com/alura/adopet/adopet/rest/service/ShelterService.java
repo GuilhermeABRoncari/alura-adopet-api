@@ -34,7 +34,7 @@ public class ShelterService {
                         userDTO.adress().getStreet().isBlank() || userDTO.adress().getNumber().isBlank())
             throw new DomainException(INVALID_FIELD);
         var shelter = new Shelter(null, null, userDTO.userName(),
-                userDTO.fone(), userDTO.email(), securityConfigurations.passwordEncoder().encode(userDTO.password()),
+                userDTO.phone(), userDTO.email(), securityConfigurations.passwordEncoder().encode(userDTO.password()),
                 new Adress(
                         userDTO.adress().getCep(), userDTO.adress().getState(), userDTO.adress().getCity(),
                         userDTO.adress().getNeighborhood(), userDTO.adress().getStreet(), userDTO.adress().getNumber()));

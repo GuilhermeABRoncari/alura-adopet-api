@@ -3,8 +3,6 @@ package br.com.alura.adopet.adopet.rest.controller;
 import br.com.alura.adopet.adopet.domain.dto.ShelterUpdateDTO;
 import br.com.alura.adopet.adopet.domain.response.ShelterResponse;
 import br.com.alura.adopet.adopet.rest.service.ShelterService;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.annotation.Secured;
