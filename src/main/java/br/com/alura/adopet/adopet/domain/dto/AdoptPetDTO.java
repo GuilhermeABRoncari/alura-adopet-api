@@ -4,13 +4,13 @@ import com.fasterxml.jackson.annotation.JsonAlias;
 import jakarta.validation.constraints.NotNull;
 
 public record AdoptPetDTO(
-        @NotNull
+        @NotNull(message = "Can not be null.")
         @JsonAlias("tutor_id")
         Long tutorId,
-        @NotNull
+        @NotNull(message = "Can not be null.")
         @JsonAlias("shelter_id")
         Long shelterId,
-        @NotNull
+        @NotNull(message = "Can not be null.")
         @JsonAlias("pet_id")
         Long petId) {
 }

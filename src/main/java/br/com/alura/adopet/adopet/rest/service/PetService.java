@@ -10,7 +10,6 @@ import br.com.alura.adopet.adopet.domain.repository.ShelterRepository;
 import br.com.alura.adopet.adopet.domain.repository.TutorRepository;
 import br.com.alura.adopet.adopet.domain.response.AdoptPetResponse;
 import br.com.alura.adopet.adopet.domain.response.PetResponse;
-import br.com.alura.adopet.adopet.domain.response.ShelterResponse;
 import br.com.alura.adopet.adopet.domain.response.TutorResponse;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -35,7 +34,7 @@ public class PetService {
     }
 
     public Page<PetResponse> list(Pageable pageable) {
-        return petRepository.findAll(pageable).map(PetResponse::new);
+        return petRepository.findAllByAdoptedFalse(pageable).map(PetResponse::new);
     }
 
     public PetResponse find(Long id) {
@@ -77,6 +76,6 @@ public class PetService {
         var shelter = shelterRepository.findById(adoptPetDTO.shelterId()).orElseThrow(() -> new DomainNotFoundException());
         pet.setAdopted();
         shelter.getPetList().remove(pet);
-        return new AdoptPetResponse(new TutorResponse(tutor), new PetResponse(pet), new ShelterResponse(shelter));
+        return new AdoptPetResponse(new TutorResponse(tutor), new PetResponse(pet));
     }
 }
