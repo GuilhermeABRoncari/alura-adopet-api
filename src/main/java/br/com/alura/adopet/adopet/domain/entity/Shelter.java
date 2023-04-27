@@ -28,6 +28,8 @@ public class Shelter implements UserDetails {
     private Long id;
     @OneToMany(mappedBy = "shelter", cascade = CascadeType.ALL)
     private List<Pet> petList = new ArrayList<>();
+    @OneToMany(mappedBy = "shelter", cascade = CascadeType.ALL)
+    private List<AdopetMessage> messageList = new ArrayList<>();
     private String name;
     private String fone;
     private String email;

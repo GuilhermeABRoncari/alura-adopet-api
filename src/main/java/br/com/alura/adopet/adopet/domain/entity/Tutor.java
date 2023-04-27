@@ -11,6 +11,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -30,6 +31,8 @@ public class Tutor implements UserDetails {
     private String password;
     private String about;
     private String image;
+    @OneToMany(mappedBy = "tutor", cascade = CascadeType.ALL)
+    private List<AdopetMessage> messageList = new ArrayList<>();
 
     public void update(TutorUpdateDTO tutorUpdateDTO) {
         if(tutorUpdateDTO.name() != null) this.name = tutorUpdateDTO.name();

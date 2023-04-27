@@ -27,7 +27,7 @@ public class TutorService {
     public UserResponse create(UserDTO userDTO) {
         if (tutorRepository.existsByEmail(userDTO.email())) throw new DomainException(IN_USE);
         var tutor = new Tutor(null, userDTO.userName(), userDTO.email(),
-                securityConfigurations.passwordEncoder().encode(userDTO.password()), userDTO.about(), userDTO.image());
+                securityConfigurations.passwordEncoder().encode(userDTO.password()), userDTO.about(), userDTO.image(), null);
         tutorRepository.save(tutor);
         return new UserResponse(tutor);
     }
