@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 public record UserDTO(
-        @NotNull
+        @NotNull(message = "This field can not be null, use TUTOR or SHELTER.")
         UserRole userRole,
         @NotBlank
         @Email

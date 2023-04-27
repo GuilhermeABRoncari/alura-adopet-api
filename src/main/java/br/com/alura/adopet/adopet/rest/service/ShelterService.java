@@ -23,15 +23,19 @@ public class ShelterService {
     private ShelterRepository shelterRepository;
     private SecurityConfigurations securityConfigurations;
     private static final String IN_USE = "Email is already in use.";
-    private static final String INVALID_FIELD = "Fields 'cep', 'state', 'city', 'neighborhood', 'street' and 'number' is mandatory.";
+    private static final String INVALID_FIELD = "Fields: 'phone', 'cep', 'state', 'city', 'neighborhood', 'street' and 'number' is mandatory.";
 
     @Transactional
     public UserResponse create(UserDTO userDTO) {
         if (shelterRepository.existsByEmail(userDTO.email())) throw new DomainException(IN_USE);
         if (
-                userDTO.adress().getCep().isBlank() || userDTO.adress().getState().isBlank() ||
-                        userDTO.adress().getCity().isBlank() || userDTO.adress().getNeighborhood().isBlank() ||
-                        userDTO.adress().getStreet().isBlank() || userDTO.adress().getNumber().isBlank())
+                userDTO.phone() == null || userDTO.phone().isBlank() ||
+                userDTO.adress().getCep() == null || userDTO.adress().getCep().isBlank() ||
+                userDTO.adress().getState() == null || userDTO.adress().getState().isBlank() ||
+                userDTO.adress().getCity() == null || userDTO.adress().getCity().isBlank() ||
+                userDTO.adress().getNeighborhood() == null ||userDTO.adress().getNeighborhood().isBlank() ||
+                userDTO.adress().getStreet() == null || userDTO.adress().getStreet().isBlank() ||
+                userDTO.adress().getNumber() == null || userDTO.adress().getNumber().isBlank())
             throw new DomainException(INVALID_FIELD);
         var shelter = new Shelter(null, null, userDTO.userName(),
                 userDTO.phone(), userDTO.email(), securityConfigurations.passwordEncoder().encode(userDTO.password()),
