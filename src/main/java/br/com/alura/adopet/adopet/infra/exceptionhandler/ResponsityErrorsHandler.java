@@ -2,6 +2,7 @@ package br.com.alura.adopet.adopet.infra.exceptionhandler;
 
 import br.com.alura.adopet.adopet.domain.exception.DomainException;
 import br.com.alura.adopet.adopet.domain.exception.DomainNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
@@ -12,6 +13,11 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 public class ResponsityErrorsHandler {
+
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity notFound(EntityNotFoundException ex) {
+        return ResponseEntity.notFound().build();
+    }
     @ExceptionHandler(DomainException.class)
     public ResponseEntity domainException(DomainException ex) {
         return ResponseEntity.badRequest().body(ex.getMessage());
