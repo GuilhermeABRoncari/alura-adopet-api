@@ -1,6 +1,7 @@
 package br.com.alura.adopet.adopet.rest.controller;
 
 import br.com.alura.adopet.adopet.domain.dto.ShelterUpdateDTO;
+import br.com.alura.adopet.adopet.domain.repository.ShelterRepository;
 import br.com.alura.adopet.adopet.rest.service.ShelterService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -33,6 +34,8 @@ class ShelterControllerTest {
     private JacksonTester<ShelterUpdateDTO> updateJson;
     @MockBean
     private ShelterService shelterService;
+    @MockBean
+    private ShelterRepository shelterRepository;
 
     @Test
     @DisplayName("Deve retornar codigo 200")
@@ -46,7 +49,7 @@ class ShelterControllerTest {
     @DisplayName("Deve retornar codigo 404")
     @WithMockUser
     void findByIdTeste() throws Exception {
-        var response = mvc.perform(get("/shelters/3")).andReturn().getResponse();
+        var response = mvc.perform(get("/shelters/")).andReturn().getResponse();
         assertThat(response.getStatus()).isEqualTo(HttpStatus.NOT_FOUND.value());
     }
 

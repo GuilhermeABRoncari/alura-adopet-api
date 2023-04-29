@@ -10,6 +10,7 @@ import br.com.alura.adopet.adopet.domain.repository.ShelterRepository;
 import br.com.alura.adopet.adopet.domain.response.ShelterResponse;
 import br.com.alura.adopet.adopet.domain.response.UserResponse;
 import br.com.alura.adopet.adopet.infra.security.SecurityConfigurations;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,7 @@ public class ShelterService {
     private SecurityConfigurations securityConfigurations;
     private static final String IN_USE = "Email is already in use.";
     private static final String INVALID_FIELD = "Fields: 'phone', 'cep', 'state', 'city', 'neighborhood', 'street' and 'number' is mandatory.";
+    private static final String CANT_BE_DELETED = "This shelter contains pets, and can not be deleted!";
 
     @Transactional
     public UserResponse create(UserDTO userDTO) {
@@ -54,7 +56,7 @@ public class ShelterService {
     }
 
     public ShelterResponse find(Long id) {
-        return new ShelterResponse(shelterRepository.findById(id).orElseThrow(() -> new DomainNotFoundException()));
+        return new ShelterResponse(shelterRepository.findById(id).orElseThrow(() -> new EntityNotFoundException()));
     }
 
     @Transactional
@@ -69,7 +71,7 @@ public class ShelterService {
         if (!shelterRepository.existsById(id)) throw new DomainNotFoundException();
         if (shelterRepository.getReferenceById(id).getPetList().isEmpty()) {
             shelterRepository.deleteById(id);
-        } else throw new DomainException("This shelter contains pets, and can not be deleted!");
+        } else throw new DomainException(CANT_BE_DELETED);
     }
 
     public boolean exists(String email) {
