@@ -1,5 +1,6 @@
 package br.com.alura.adopet.adopet.domain.entity;
 
+import br.com.alura.adopet.adopet.domain.dto.AdopetMessageUpdate;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -25,4 +26,9 @@ public class AdopetMessage {
     @OneToOne
     private Pet pet;
     private String message;
+
+    public void update(AdopetMessageUpdate adopetMessageUpdate, Pet pet) {
+        if(adopetMessageUpdate.petId() != null) this.pet = pet;
+        if(adopetMessageUpdate.message() != null) this.message = adopetMessageUpdate.message();
+    }
 }

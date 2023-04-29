@@ -1,9 +1,12 @@
 package br.com.alura.adopet.adopet.rest.service;
 
 import br.com.alura.adopet.adopet.domain.dto.AdopetMessageDTO;
+import br.com.alura.adopet.adopet.domain.dto.AdopetMessageUpdate;
 import br.com.alura.adopet.adopet.domain.entity.AdopetMessage;
+import br.com.alura.adopet.adopet.domain.entity.Pet;
 import br.com.alura.adopet.adopet.domain.entity.Shelter;
 import br.com.alura.adopet.adopet.domain.entity.Tutor;
+import br.com.alura.adopet.adopet.domain.exception.DomainException;
 import br.com.alura.adopet.adopet.domain.repository.AdopetMessageRepository;
 import br.com.alura.adopet.adopet.domain.repository.PetRepository;
 import br.com.alura.adopet.adopet.domain.repository.ShelterRepository;
@@ -58,5 +61,50 @@ public class AdopetMessageService {
         }
         Page<AdopetMessageResponse> page = new PageImpl<>(list, pageable, list.size());
         return page;
+    }
+
+    public AdopetMessageResponse getMessage(String email, Long id) {
+        Tutor tutor = (Tutor) tutorRepository.findByEmail(email);
+        Shelter shelter = (Shelter) shelterRepository.findByEmail(email);
+        AdopetMessage message = adopetMessageRepository.findById(id).orElseThrow(() -> new EntityNotFoundException());
+        if (tutor != null) {
+            if (tutor.getMessageList().contains(message)) return new AdopetMessageResponse(message);
+        } else if (shelter != null) {
+            if (shelter.getMessageList().contains(message)) return new AdopetMessageResponse(message);
+        }
+        throw new EntityNotFoundException();
+    }
+
+    @Transactional
+    public AdopetMessageResponse updateMessage(String email, Long id, AdopetMessageUpdate adopetMessageUpdate) {
+        Tutor tutor = (Tutor) tutorRepository.findByEmail(email);
+        Shelter shelter = (Shelter) shelterRepository.findByEmail(email);
+        Pet pet = petRepository.findById(adopetMessageUpdate.petId()).orElseThrow(() -> new EntityNotFoundException());
+        AdopetMessage message = adopetMessageRepository.findById(id).orElseThrow(() -> new EntityNotFoundException());
+        if (tutor != null) {
+            if (!tutor.getMessageList().contains(message)) throw new EntityNotFoundException();
+            message.update(adopetMessageUpdate, pet);
+            return new AdopetMessageResponse(message);
+        } else if (shelter != null) {
+            if (!shelter.getMessageList().contains(message)) throw new EntityNotFoundException();
+            message.update(adopetMessageUpdate, pet);
+            return new AdopetMessageResponse(message);
+        } throw new DomainException("Invalid update for this message.");
+    }
+
+    @Transactional
+    public void deleteMessage(String email, Long id) {
+        Tutor tutor = (Tutor) tutorRepository.findByEmail(email);
+        Shelter shelter = (Shelter) shelterRepository.findByEmail(email);
+        AdopetMessage message = adopetMessageRepository.findById(id).orElseThrow(() -> new EntityNotFoundException());
+        if (tutor != null) {
+            if (!tutor.getMessageList().contains(message)) throw new EntityNotFoundException();
+            tutor.getMessageList().remove(message);
+            adopetMessageRepository.delete(message);
+        } else if (shelter != null) {
+            if (!shelter.getMessageList().contains(message)) throw new EntityNotFoundException();
+            shelter.getMessageList().remove(message);
+            adopetMessageRepository.delete(message);
+        }
     }
 }

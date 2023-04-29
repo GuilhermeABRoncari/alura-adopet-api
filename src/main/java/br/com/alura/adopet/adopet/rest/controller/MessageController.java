@@ -1,7 +1,7 @@
 package br.com.alura.adopet.adopet.rest.controller;
 
 import br.com.alura.adopet.adopet.domain.dto.AdopetMessageDTO;
-import br.com.alura.adopet.adopet.domain.entity.Tutor;
+import br.com.alura.adopet.adopet.domain.dto.AdopetMessageUpdate;
 import br.com.alura.adopet.adopet.domain.response.AdopetMessageResponse;
 import br.com.alura.adopet.adopet.infra.security.AuthenticationFacade;
 import br.com.alura.adopet.adopet.rest.service.AdopetMessageService;
@@ -27,12 +27,36 @@ public class MessageController {
     @ResponseStatus(HttpStatus.CREATED)
     @Secured("ROLE_USER")
     public AdopetMessageResponse postMessage(@RequestBody @Valid AdopetMessageDTO messageDTO) {
-        String email = authenticationFacade.getAuthentication().getName();
+        String email = getEmail();
         return adopetMessageService.postMessage(email, messageDTO);
     }
+
     @GetMapping
     public Page<AdopetMessageResponse> listAllMessages(Pageable pageable) {
-        String email = authenticationFacade.getAuthentication().getName();
+        String email = getEmail();
         return adopetMessageService.list(email, pageable);
+    }
+
+    @GetMapping("{id}")
+    public AdopetMessageResponse getMessage(@PathVariable Long id) {
+        String email = getEmail();
+        return adopetMessageService.getMessage(email, id);
+    }
+
+    @PutMapping("{id}")
+    public AdopetMessageResponse updateMessage(@PathVariable Long id, @RequestBody AdopetMessageUpdate adopetMessageUpdate) {
+        String email = getEmail();
+        return adopetMessageService.updateMessage(email, id, adopetMessageUpdate);
+    }
+
+    @DeleteMapping("{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteMessage(@PathVariable Long id) {
+        String email = getEmail();
+        adopetMessageService.deleteMessage(email, id);
+    }
+
+    private String getEmail() {
+        return authenticationFacade.getAuthentication().getName();
     }
 }
