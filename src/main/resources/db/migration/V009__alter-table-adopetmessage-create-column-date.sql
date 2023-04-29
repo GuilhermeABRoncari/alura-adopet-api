@@ -1,0 +1,1 @@
+ALTER TABLE adopet_messages ADD COLUMN date_time DATETIME;

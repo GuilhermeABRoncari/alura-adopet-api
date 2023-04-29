@@ -20,6 +20,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +40,7 @@ public class AdopetMessageService {
         var pet = petRepository.findByNameLike("%" + messageDTO.petName() + "%");
         if (pet == null) throw new EntityNotFoundException("Pet whit this name not found.");
         if (shelter.getPetList().contains(pet)) {
-            var message = new AdopetMessage(null, tutor, shelter, pet, messageDTO.message());
+            var message = new AdopetMessage(null, tutor, shelter, pet, messageDTO.message(), OffsetDateTime.now());
             adopetMessageRepository.save(message);
             tutor.getMessageList().add(message);
             shelter.getMessageList().add(message);

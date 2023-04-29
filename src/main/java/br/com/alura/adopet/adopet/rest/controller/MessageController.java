@@ -44,6 +44,7 @@ public class MessageController {
     }
 
     @PutMapping("{id}")
+    @Secured("ROLE_USER")
     public AdopetMessageResponse updateMessage(@PathVariable Long id, @RequestBody AdopetMessageUpdate adopetMessageUpdate) {
         String email = getEmail();
         return adopetMessageService.updateMessage(email, id, adopetMessageUpdate);
