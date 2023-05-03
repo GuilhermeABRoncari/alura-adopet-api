@@ -1,6 +1,5 @@
 package br.com.alura.adopet.adopet.infra.security;
 
-import br.com.alura.adopet.adopet.rest.controller.PetController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

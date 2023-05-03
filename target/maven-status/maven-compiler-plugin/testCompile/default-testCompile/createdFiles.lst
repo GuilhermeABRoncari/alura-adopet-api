@@ -1,0 +1,6 @@
+br\com\alura\adopet\adopet\rest\controller\PetControllerTest.class
+br\com\alura\adopet\adopet\AdopetApplicationTests.class
+br\com\alura\adopet\adopet\rest\controller\ShelterControllerTest.class
+br\com\alura\adopet\adopet\rest\controller\AuthenticationControllerTest.class
+br\com\alura\adopet\adopet\rest\controller\HomeControllerTest.class
+br\com\alura\adopet\adopet\rest\controller\TutorControllerTest.class
