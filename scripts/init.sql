@@ -1,0 +1,2 @@
+CREATE DATABASE adopet;
+CREATE DATABASE adopet_test;
