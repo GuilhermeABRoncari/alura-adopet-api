@@ -10,4 +10,4 @@ ENV DATASOURCE_URL=${DATASOURCE_URL}
 ENV DATASOURCE_USERNAME=${DATASOURCE_USERNAME}
 ENV DATASOURCE_PASSWORD=${DATASOURCE_PASSWORD}
 
-CMD ["java", "-jar", "adopet-0.0.1-SNAPSHOT.jar"]
+CMD ["java", "-jar", "adopet-0.0.1-SNAPSHOT.jar", "--spring.profiles.active=prod"]
