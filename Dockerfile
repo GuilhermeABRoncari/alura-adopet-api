@@ -15,8 +15,9 @@ COPY --from=build ../target/adopet-0.0.1-SNAPSHOT.jar .
 
 EXPOSE 8080
 
-ENV DATASOURCE_URL=jdbc:mysql://containers-us-west-113.railway.app:5851/railway
-ENV DATASOURCE_USERNAME=root
-ENV DATASOURCE_PASSWORD=Lf94r7l2uVaPsJ0EVBGr
+#ENV DATASOURCE_URL=jdbc:mysql://containers-us-west-113.railway.app:5851/railway
+#ENV DATASOURCE_USERNAME=root
+#ENV DATASOURCE_PASSWORD=Lf94r7l2uVaPsJ0EVBGr
+#, "--spring.profiles.active=prod"
 
-ENTRYPOINT ["java", "-jar", "adopet-0.0.1-SNAPSHOT.jar", "--spring.profiles.active=prod"]
+ENTRYPOINT ["java", "-jar", "adopet-0.0.1-SNAPSHOT.jar"]
