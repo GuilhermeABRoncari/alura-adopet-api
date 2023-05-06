@@ -11,7 +11,7 @@ FROM openjdk:17-jdk-slim
 
 WORKDIR /app
 
-COPY --from=build /build/libs/adopet-0.0.1-SNAPSHOT.jar app.jar
+COPY --from=build ../target/adopet-0.0.1-SNAPSHOT.jar .
 
 EXPOSE 8080
 
